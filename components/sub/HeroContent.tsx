@@ -1,3 +1,4 @@
+import { slideInFromTop } from "@/utils/motion"
 import { motion } from "framer-motion"
 
 const HeroContent = () => {
@@ -12,7 +13,7 @@ const HeroContent = () => {
                     variants={slideInFromTop}
                     className="welcome-box py-[15px] px-[4px] border border-[#7042f88b] opacity-[0.9]"
                 >
-                    
+                    Sasindu's Portfolio
                 </motion.div>
             </div>
             
