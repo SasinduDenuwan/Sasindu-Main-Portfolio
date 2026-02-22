@@ -25,13 +25,7 @@ export interface Education {
     description?: string;
 }
 
-export interface Certificate {
-    id: string;
-    name: string;
-    issuer: string;
-    year: string;
-    link?: string;
-}
+
 
 export interface SocialLink {
     name: string;
@@ -88,7 +82,7 @@ export const education: Education[] = [
         institution: 'IJSE – Institute of Software Engineering',
         year: '2024 – 2026',
         description:
-            'Pursuing an intensive higher diploma with a strong focus on full-stack development. Gaining hands-on expertise in the MERN Stack, React Native, Spring Boot, TypeScript, jQuery, Bootstrap, and MySQL — covering both front-end and back-end engineering across web and mobile platforms.',
+            'Pursuing an intensive higher diploma with a strong focus on full-stack development. Gaining hands-on expertise in the MERN Stack, React Native, Spring Boot, TypeScript, Bootstrap, MongoDB, and MySQL — covering front-end, back-end engineering, and deep knowledge of API development across web and mobile platforms.',
     },
     {
         id: '2',
@@ -116,18 +110,6 @@ export const education: Education[] = [
     },
 ];
 
-
-// ----- Certificates -----
-export const certificates: Certificate[] = [
-    {
-        id: '1',
-        name: 'AWS Certified Developer – Associate',
-        issuer: 'Amazon Web Services',
-        year: '2023',
-        link: 'https://aws.com/verify/...',
-    },
-    // ...
-];
 
 // ----- Social Links -----
 export const socialLinks: SocialLink[] = [
