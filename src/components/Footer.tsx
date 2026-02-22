@@ -1,21 +1,39 @@
-// src/components/Footer.tsx
 import { socialLinks } from '@/data';
+import { Github, Linkedin, Twitter, ExternalLink } from 'lucide-react';
 
-export default function Footer() {
+interface Props {
+    className?: string; // allow className overriding 
+}
+
+export default function Footer({ className = '' }: Props) {
+    const renderIcon = (iconName: string) => {
+        switch (iconName.toLowerCase()) {
+            case 'github': return <Github size={20} />;
+            case 'linkedin': return <Linkedin size={20} />;
+            case 'twitter': return <Twitter size={20} />;
+            default: return <ExternalLink size={20} />;
+        }
+    };
+
     return (
-        <footer className="bg-gray-100 dark:bg-gray-900 py-8">
-            <div className="max-w-6xl mx-auto px-4 flex flex-col md:flex-row justify-between items-center">
-                <p className="text-sm">© {new Date().getFullYear()} Alex Morgan. All rights reserved.</p>
-                <div className="flex space-x-4 mt-4 md:mt-0">
+        <footer className={`relative border-t border-white/10 bg-black/40 backdrop-blur-md py-12 ${className}`}>
+            <div className="max-w-6xl mx-auto px-6 flex flex-col md:flex-row justify-between items-center gap-6">
+
+                <p className="text-white/50 text-sm font-medium">
+                    © {new Date().getFullYear()} Alex Morgan. Crafted with Next.js & Tailwind.
+                </p>
+
+                <div className="flex gap-4">
                     {socialLinks.map((link) => (
                         <a
                             key={link.name}
                             href={link.url}
                             target="_blank"
                             rel="noopener noreferrer"
-                            className="text-gray-600 hover:text-blue-600 dark:text-gray-400 dark:hover:text-blue-400"
+                            aria-label={link.name}
+                            className="p-3 rounded-full bg-white/5 border border-white/10 text-white/60 hover:text-white hover:bg-white/10 transition-all hover:scale-110 active:scale-95 shadow-sm"
                         >
-                            {link.name} {/* Replace with actual icons later */}
+                            {renderIcon(link.icon)}
                         </a>
                     ))}
                 </div>

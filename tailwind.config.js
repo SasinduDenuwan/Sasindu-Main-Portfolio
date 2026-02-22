@@ -6,9 +6,13 @@ module.exports = {
         './src/app/**/*.{js,ts,jsx,tsx,mdx}',
         './src/sections/**/*.{js,ts,jsx,tsx,mdx}',
     ],
-    darkMode: 'media', // or 'class'
+    darkMode: 'class',
     theme: {
-        extend: {},
+        extend: {
+            animation: {
+                'spin-slow': 'spin 8s linear infinite',
+            },
+        },
     },
     plugins: [],
 };
