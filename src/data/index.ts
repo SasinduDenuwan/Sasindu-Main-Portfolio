@@ -2,9 +2,9 @@
 
 export interface Skill {
     name: string;
-    level: number; // 0-100
+    category: 'Frontend' | 'Backend' | 'Tools';
     icon: string;  // react-icons/si component name e.g. 'SiReact'
-    color: string; // tailwind text color class for the icon
+    color: string;
 }
 
 export interface Project {
@@ -34,19 +34,36 @@ export interface SocialLink {
 }
 
 // ----- Skills -----
+export type SkillCategory = 'All' | 'Frontend' | 'Backend' | 'Tools';
+
 export const skills: Skill[] = [
-    { name: 'JavaScript', level: 92, icon: 'SiJavascript', color: '#F7DF1E' },
-    { name: 'TypeScript', level: 88, icon: 'SiTypescript', color: '#3178C6' },
-    { name: 'React', level: 90, icon: 'SiReact', color: '#61DAFB' },
-    { name: 'Next.js', level: 85, icon: 'SiNextdotjs', color: '#ffffff' },
-    { name: 'Node.js', level: 80, icon: 'SiNodedotjs', color: '#339933' },
-    { name: 'Python', level: 75, icon: 'SiPython', color: '#3776AB' },
-    { name: 'Tailwind CSS', level: 90, icon: 'SiTailwindcss', color: '#06B6D4' },
-    { name: 'GraphQL', level: 70, icon: 'SiGraphql', color: '#E10098' },
-    { name: 'MongoDB', level: 72, icon: 'SiMongodb', color: '#47A248' },
-    { name: 'Docker', level: 65, icon: 'SiDocker', color: '#2496ED' },
-    { name: 'Git', level: 88, icon: 'SiGit', color: '#F05032' },
-    { name: 'Prisma', level: 70, icon: 'SiPrisma', color: '#2D3748' },
+    // Frontend
+    { name: 'React', category: 'Frontend', icon: 'SiReact', color: '#61DAFB' },
+    { name: 'React Native', category: 'Frontend', icon: 'SiReact', color: '#61DAFB' },
+    { name: 'Expo', category: 'Frontend', icon: 'SiExpo', color: '#000020' },
+    { name: 'TypeScript', category: 'Frontend', icon: 'SiTypescript', color: '#3178C6' },
+    { name: 'JavaScript', category: 'Frontend', icon: 'SiJavascript', color: '#F7DF1E' },
+    { name: 'HTML5', category: 'Frontend', icon: 'SiHtml5', color: '#E34F26' },
+    { name: 'CSS3', category: 'Frontend', icon: 'SiCss3', color: '#1572B6' },
+    { name: 'Tailwind', category: 'Frontend', icon: 'SiTailwindcss', color: '#06B6D4' },
+    { name: 'Next.js', category: 'Frontend', icon: 'SiNextdotjs', color: '#ffffff' },
+    { name: 'Redux', category: 'Frontend', icon: 'SiRedux', color: '#764ABC' },
+    // Backend
+    { name: 'Node.js', category: 'Backend', icon: 'SiNodedotjs', color: '#339933' },
+    { name: 'Express', category: 'Backend', icon: 'SiExpress', color: '#ffffff' },
+    { name: 'MongoDB', category: 'Backend', icon: 'SiMongodb', color: '#47A248' },
+    { name: 'MySQL', category: 'Backend', icon: 'SiMysql', color: '#4479A1' },
+    { name: 'Spring', category: 'Backend', icon: 'SiSpring', color: '#6DB33F' },
+    { name: 'Spring Boot', category: 'Backend', icon: 'SiSpringboot', color: '#6DB33F' },
+    { name: 'Java', category: 'Backend', icon: 'SiJava', color: '#ED8B00' },
+    { name: 'Python', category: 'Backend', icon: 'SiPython', color: '#3776AB' },
+    // Tools
+    { name: 'Git', category: 'Tools', icon: 'SiGit', color: '#F05032' },
+    { name: 'Figma', category: 'Tools', icon: 'SiFigma', color: '#F24E1E' },
+    { name: 'Postman', category: 'Tools', icon: 'SiPostman', color: '#FF6C37' },
+    { name: 'VS Code', category: 'Tools', icon: 'SiVisualstudiocode', color: '#007ACC' },
+    { name: 'IntelliJ', category: 'Tools', icon: 'SiIntellijidea', color: '#FE315D' },
+    { name: 'Docker', category: 'Tools', icon: 'SiDocker', color: '#2496ED' },
 ];
 
 // ----- Projects -----

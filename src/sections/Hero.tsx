@@ -3,15 +3,6 @@
 import { motion } from 'framer-motion';
 import { personalInfo } from '@/data';
 import { ArrowRight, Briefcase } from 'lucide-react';
-import { SiReact, SiNextdotjs, SiTypescript, SiNodedotjs, SiTailwindcss } from 'react-icons/si';
-
-const techBadges = [
-    { icon: SiReact, name: 'React', color: '#61DAFB' },
-    { icon: SiNextdotjs, name: 'Next.js', color: '#ffffff' },
-    { icon: SiTypescript, name: 'TypeScript', color: '#3178C6' },
-    { icon: SiNodedotjs, name: 'Node.js', color: '#339933' },
-    { icon: SiTailwindcss, name: 'Tailwind', color: '#06B6D4' },
-];
 
 export default function Hero() {
     return (
@@ -82,28 +73,6 @@ export default function Hero() {
                 >
                     {personalInfo.shortBio}
                 </motion.p>
-
-                {/* Tech Badges */}
-                <motion.div
-                    initial={{ y: 20, opacity: 0 }}
-                    animate={{ y: 0, opacity: 1 }}
-                    transition={{ delay: 0.9, duration: 0.8 }}
-                    className="flex flex-wrap justify-center gap-3 mb-12"
-                >
-                    {techBadges.map(({ icon: Icon, name, color }, i) => (
-                        <motion.div
-                            key={name}
-                            whileHover={{ scale: 1.1, y: -3 }}
-                            initial={{ opacity: 0, y: 20 }}
-                            animate={{ opacity: 1, y: 0 }}
-                            transition={{ delay: 1 + i * 0.1 }}
-                            className="flex items-center gap-2 px-4 py-2 bg-white/5 backdrop-blur-md border border-white/10 rounded-full text-sm font-medium text-white/70 hover:text-white hover:border-white/30 transition-all"
-                        >
-                            <Icon style={{ color }} className="text-lg" />
-                            {name}
-                        </motion.div>
-                    ))}
-                </motion.div>
 
                 {/* CTA Buttons */}
                 <motion.div
