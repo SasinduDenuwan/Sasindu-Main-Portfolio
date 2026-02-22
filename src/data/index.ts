@@ -84,13 +84,38 @@ export const projects: Project[] = [
 export const education: Education[] = [
     {
         id: '1',
-        degree: 'B.Sc. in Computer Science',
-        institution: 'University of Technology',
-        year: '2018 – 2022',
-        description: 'Graduated with honors. Focus on software engineering and AI.',
+        degree: 'Higher Diploma in Software Engineering',
+        institution: 'IJSE – Institute of Software Engineering',
+        year: '2024 – 2026',
+        description:
+            'Pursuing an intensive higher diploma with a strong focus on full-stack development. Gaining hands-on expertise in the MERN Stack, React Native, Spring Boot, TypeScript, jQuery, Bootstrap, and MySQL — covering both front-end and back-end engineering across web and mobile platforms.',
     },
-    // ...
+    {
+        id: '2',
+        degree: 'Diploma in Information Technology',
+        institution: 'ESOFT Metro Campus',
+        year: 'Jul 2023 – Apr 2024',
+        description:
+            'Completed a comprehensive IT diploma covering software development fundamentals, database management with Microsoft SQL Server, C# programming, CSS3, HTML5, and core project management principles. Graduated with distinction.',
+    },
+    {
+        id: '3',
+        degree: 'Diploma in English',
+        institution: 'British Way English Academy',
+        year: 'Sep 2023 – Nov 2023',
+        description:
+            'Completed an intensive English communication program focused on professional and business communication, writing, and presentation skills — strengthening the ability to collaborate effectively in international tech environments.',
+    },
+    {
+        id: '4',
+        degree: 'Ordinary Level Examination',
+        institution: 'Deniyaya Central College',
+        year: '2017 – 2023',
+        description:
+            'Completed secondary education and sat the G.C.E. Ordinary Level examination, achieving 9A passes — building a solid academic foundation that led to a career in software engineering.',
+    },
 ];
+
 
 // ----- Certificates -----
 export const certificates: Certificate[] = [
@@ -106,19 +131,19 @@ export const certificates: Certificate[] = [
 
 // ----- Social Links -----
 export const socialLinks: SocialLink[] = [
-    { name: 'GitHub', url: 'https://github.com/yourusername', icon: 'github' },
-    { name: 'LinkedIn', url: 'https://linkedin.com/in/yourusername', icon: 'linkedin' },
-    { name: 'Twitter', url: 'https://twitter.com/yourusername', icon: 'twitter' },
-    { name: 'Email', url: 'mailto:alex@example.com', icon: 'email' },
+    { name: 'GitHub', url: 'https://github.com/SasinduDenuwan', icon: 'github' },
+    { name: 'LinkedIn', url: 'https://www.linkedin.com/in/sasindu-denuwan/', icon: 'linkedin' },
+    { name: 'Email', url: 'mailto:sasindudenuwan2006wpsk@gmail.com', icon: 'email' },
 ];
 
 // Personal info (used in Hero & About)
 export const personalInfo = {
-    name: 'Alex Morgan',
+    name: 'Sasindu',
     title: 'Software Engineer',
     shortBio:
-        'I build scalable web applications with modern technologies. Passionate about clean code and user experience.',
-    email: 'alex@example.com',
-    location: 'San Francisco, CA',
+        'Full Stack Engineer building exceptional digital experiences with clean, scalable architecture. Specializing in Spring Boot, MERN Stack, and React Native to deliver high-performance web and mobile applications from backend to frontend.',
+    email: 'sasindudenuwan2006wpsk@gmail.com',
+    location: 'Galle, Sri Lanka',
     avatar: '/images/avatar.jpg', // optional
+    experience: '4+ years',       // ← shown in About section quick-facts
 };

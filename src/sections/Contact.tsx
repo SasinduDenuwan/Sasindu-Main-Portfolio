@@ -1,3 +1,4 @@
+import React from 'react';
 import SectionWrapper from '@/components/SectionWrapper';
 import ContactForm from '@/components/ContactForm';
 import { socialLinks, personalInfo } from '@/data';

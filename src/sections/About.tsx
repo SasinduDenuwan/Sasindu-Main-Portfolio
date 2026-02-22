@@ -1,5 +1,5 @@
 import SectionWrapper from '@/components/SectionWrapper';
-import { personalInfo } from '@/data';
+import { personalInfo, education } from '@/data';
 import { MapPin, Mail, GraduationCap, Briefcase } from 'lucide-react';
 
 export default function About() {
@@ -54,7 +54,7 @@ export default function About() {
                             </div>
                             <div>
                                 <p className="text-sm text-white/40 uppercase tracking-wider font-semibold">Education</p>
-                                <p className="font-medium">B.Sc. in Computer Science</p>
+                                <p className="font-medium">{education[0]?.degree ?? 'N/A'}</p>
                             </div>
                         </li>
 
@@ -64,7 +64,7 @@ export default function About() {
                             </div>
                             <div>
                                 <p className="text-sm text-white/40 uppercase tracking-wider font-semibold">Experience</p>
-                                <p className="font-medium">4+ years</p>
+                                <p className="font-medium">{personalInfo.experience}</p>
                             </div>
                         </li>
                     </ul>
