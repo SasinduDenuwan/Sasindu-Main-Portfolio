@@ -31,8 +31,19 @@ const TECH_ICON_MAP: Record<string, { icon: SiKeys; color: string }> = {
     'Spring Security': { icon: 'SiSpringsecurity', color: '#6DB33F' },
     'MySQL': { icon: 'SiMysql', color: '#4479A1' },
     'Postman': { icon: 'SiPostman', color: '#FF6C37' },
-    // Java, Hibernate, Maven, JWT — no matching Si icon in this package version;
-    // tags will render as text-only chips (handled gracefully by TechTag).
+    // NovaEdu stack additions
+    'Express.js': { icon: 'SiExpress', color: '#ffffff' },
+    'Vite': { icon: 'SiVite', color: '#646CFF' },
+    'Git': { icon: 'SiGit', color: '#F05032' },
+    'Vercel': { icon: 'SiVercel', color: '#ffffff' },
+    'Framer Motion': { icon: 'SiFramer', color: '#0055FF' },
+    // Beatify stack additions
+    'React Native': { icon: 'SiReact', color: '#61DAFB' },
+    'Expo': { icon: 'SiExpo', color: '#000020' },
+    'NativeWind': { icon: 'SiTailwindcss', color: '#06B6D4' },
+    'Firebase': { icon: 'SiFirebase', color: '#FFCA28' },
+    'Cloudinary': { icon: 'SiCloudinary', color: '#3448C5' },
+    // Expo Router — no Si icon; renders as text-only chip.
 };
 
 function TechTag({ tech }: { tech: string }) {
@@ -63,7 +74,7 @@ export default function ProjectCard({ project }: { project: Project }) {
                 <h3 className="text-xl font-bold mb-2 text-white/90 group-hover:text-blue-400 transition-colors">{project.title}</h3>
                 <p className="text-white/50 mb-5 flex-1 text-sm leading-relaxed text-justify">{project.description}</p>
 
-                <div className="flex flex-wrap gap-2 mt-auto">
+                <div className="flex flex-wrap gap-2 mt-auto mb-5">
                     {project.tech.map((tech) => (
                         <TechTag key={tech} tech={tech} />
                     ))}

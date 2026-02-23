@@ -76,8 +76,49 @@ export const projects: Project[] = [
         tech: ['HTML5', 'CSS3', 'Bootstrap', 'JavaScript', 'Java', 'Spring Boot', 'Hibernate', 'Spring Security', 'MySQL', 'Maven', 'JWT', 'Postman'],
         github: 'https://github.com/SasinduDenuwan/EventGo-Online-Ticket-Booking-Event-Management-System',
         live: '#',
+    },
+
+    {
+        id: '2',
+        title: 'NovaEdu LMS',
+        description:
+            'NovaEdu is a production-grade, full-stack Learning Management System crafted to bridge the gap between instructors and students. Featuring AI-driven assistance, real-time analytics, and a seamless e-commerce experience, it sets a new standard for online education platforms.',
+        tech: ['React', 'TypeScript', 'Tailwind', 'Redux', 'Node.js', 'Express.js', 'MongoDB', 'JWT', 'Vite', 'Git', 'Postman', 'Vercel', 'Recharts', 'Cloudinary', 'BCrypt.js', 'Node-Cron', 'OpenRouter'],
+        github: 'https://github.com/SasinduDenuwan/NovaEdu-LMS',
+        live: 'https://lms-fe-lrhe.vercel.app/',
+    },
+
+    {
+        id: '3',
+        title: 'Beatify Music App',
+        description:
+            'Beatify is a feature-rich, visually stunning music streaming application built with React Native and Expo. Designed with a Spotify-inspired aesthetic, it offers a seamless and immersive listening experience. Users can upload their own tracks, create playlists, like songs, and enjoy high-quality audio playback on both Android and iOS devices. Verified by Sasindu Denuwan, this project demonstrates a modern implementation of a complex mobile application using the latest React Native ecosystem tools including Expo Router, NativeWind (Tailwind CSS), and Firebase Backend.',
+        tech: ['React Native', 'Expo', 'TypeScript', 'Redux', 'NativeWind', 'Firebase', 'Cloudinary', 'Expo Router', 'Git'],
+        github: 'https://github.com/SasinduDenuwan/Beatify-Music-App',
+        live: 'https://expo.dev/artifacts/eas/6F6XysW44psFx8AP68hGVy.apk',
+    },
+
+    {
+        id: '4',
+        title: 'Royal Crest Hotel Website',
+        description:
+            'Royal Crest Hotel Website is a modern, responsive hotel website designed to showcase luxury accommodations, dining options, and hotel services. This project highlights clean UI design, structured navigation, and a user-friendly experience suitable for real-world hospitality websites.',
+        tech: ['HTML5', 'CSS3', 'JavaScript', 'Firebase'],
+        github: 'https://github.com/SasinduDenuwan/Royal-Crest-Hotel-Site',
+        live: 'https://royal-crest-hotel.web.app/',
+    },
+
+    {
+        id: '5',
+        title: 'Sweet Delights - Cake Recipes Site',
+        description:
+            'Sweet Delights is a modern, responsive cake recipes website designed to showcase luxury accommodations, dining options, and hotel services. This project highlights clean UI design, structured navigation, and a user-friendly experience suitable for real-world hospitality websites.',
+        tech: ['HTML5', 'CSS3', 'JavaScript', 'Firebase'],
+        github: 'https://github.com/SasinduDenuwan/Cake-Recipe-Website',
+        live: 'https://cakes-recipe-website.web.app/',
     }
-    // Add more projects...
+
+    // Add more projects... 
 ];
 
 // ----- Education -----
