@@ -94,9 +94,6 @@ export default function Footer({ className = '' }: Props) {
                     <p className="text-white/25 text-[10px] sm:text-xs">
                         © {new Date().getFullYear()} Sasindu Denuwan. All rights reserved.
                     </p>
-                    <p className="text-white/20 text-[10px] sm:text-xs flex items-center gap-1.5">
-                        Built with <Heart size={10} className="text-rose-400" fill="currentColor" /> using Next.js & Framer Motion
-                    </p>
                 </div>
             </div>
         </footer>
