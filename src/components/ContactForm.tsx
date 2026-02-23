@@ -12,7 +12,6 @@ import emailjs from '@emailjs/browser';
 const EMAILJS_PUBLIC_KEY = 'xLMoLRwdumr_OgP_f';
 const EMAILJS_SERVICE_ID = 'service_f18n82l';
 const EMAILJS_TEMPLATE_ID = 'template_pamlkkj';
-const TO_EMAIL = 'sasindudenuwan2006wpsk@gmail.com';
 // ────────────────────────────────────────────────────────────────────────────
 
 const inputClass = "w-full px-3.5 sm:px-4 py-3 sm:py-3.5 bg-white/[0.04] border border-white/10 rounded-xl focus:outline-none focus:ring-2 focus:ring-purple-500/40 focus:border-purple-500/40 text-white text-sm placeholder:text-white/20 transition-all font-light hover:border-white/20";
@@ -37,8 +36,7 @@ export default function ContactForm() {
                 {
                     from_name: data.name,
                     from_email: data.email,
-                    message: data.message,
-                    to_email: TO_EMAIL,
+                    message: data.message
                 },
                 EMAILJS_PUBLIC_KEY,
             );
