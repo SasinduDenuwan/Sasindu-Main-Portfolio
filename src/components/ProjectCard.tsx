@@ -1,11 +1,11 @@
 'use client';
 
-import { useState } from 'react';
-import { motion } from 'framer-motion';
+import { useRef, useState, useCallback } from 'react';
+import { motion, useMotionValue, useSpring, useTransform } from 'framer-motion';
 import { Project } from '@/data';
 import * as Si from 'react-icons/si';
 import { FaGithub } from 'react-icons/fa';
-import { ArrowUpRight } from 'lucide-react';
+import { ArrowUpRight, ExternalLink } from 'lucide-react';
 
 type SiKeys = keyof typeof Si;
 
@@ -41,117 +41,224 @@ const TECH_ICON_MAP: Record<string, { icon: SiKeys; color: string }> = {
     'Cloudinary': { icon: 'SiCloudinary', color: '#3448C5' },
 };
 
-const CARD_GRADIENTS = [
-    { from: 'rgba(139,92,246,0.15)', to: 'rgba(59,130,246,0.08)', border: 'rgba(139,92,246,0.3)', num: 'text-purple-400' },
-    { from: 'rgba(59,130,246,0.15)', to: 'rgba(99,102,241,0.08)', border: 'rgba(59,130,246,0.3)', num: 'text-blue-400' },
-    { from: 'rgba(16,185,129,0.12)', to: 'rgba(59,130,246,0.06)', border: 'rgba(16,185,129,0.25)', num: 'text-emerald-400' },
-    { from: 'rgba(245,158,11,0.12)', to: 'rgba(239,68,68,0.06)', border: 'rgba(245,158,11,0.25)', num: 'text-amber-400' },
-    { from: 'rgba(236,72,153,0.12)', to: 'rgba(139,92,246,0.06)', border: 'rgba(236,72,153,0.25)', num: 'text-pink-400' },
+// Per-card subtle accent colors (only for number badge & accent line — not full UI)
+const CARD_ACCENTS = [
+    { color: '#a855f7', glow: 'rgba(168,85,247,0.12)' },
+    { color: '#60a5fa', glow: 'rgba(96,165,250,0.12)' },
+    { color: '#34d399', glow: 'rgba(52,211,153,0.1)' },
+    { color: '#fbbf24', glow: 'rgba(251,191,36,0.1)' },
+    { color: '#f472b6', glow: 'rgba(244,114,182,0.1)' },
 ];
 
-function TechTag({ tech }: { tech: string }) {
+function TechTag({ tech, delay }: { tech: string; delay: number }) {
     const mapping = TECH_ICON_MAP[tech];
     const IconComp = mapping ? (Si[mapping.icon] as React.ElementType) : null;
     return (
-        <span className="flex items-center gap-1 sm:gap-1.5 bg-white/5 border border-white/10 text-white/65 text-[10px] sm:text-[11px] px-2 sm:px-2.5 py-1 sm:py-1.5 rounded-full font-medium hover:border-white/20 hover:text-white transition-all cursor-default">
+        <motion.span
+            initial={{ opacity: 0, scale: 0.75, y: 6 }}
+            animate={{ opacity: 1, scale: 1, y: 0 }}
+            transition={{ delay, duration: 0.28, type: 'spring', stiffness: 240, damping: 20 }}
+            className="flex items-center gap-1 sm:gap-1.5 bg-white/[0.05] border border-white/[0.08] text-white/55 text-[10px] sm:text-[11px] px-2 sm:px-2.5 py-1 sm:py-1.5 rounded-full font-medium cursor-default hover:border-white/20 hover:text-white/80 transition-colors"
+        >
             {IconComp && <IconComp style={{ color: mapping!.color }} className="text-xs shrink-0" />}
             {tech}
-        </span>
+        </motion.span>
     );
 }
 
 export default function ProjectCard({ project, index = 0 }: { project: Project; index?: number }) {
+    const accent = CARD_ACCENTS[index % CARD_ACCENTS.length];
+    const cardRef = useRef<HTMLDivElement>(null);
     const [hovered, setHovered] = useState(false);
-    const gradient = CARD_GRADIENTS[index % CARD_GRADIENTS.length];
+
+    // Mouse tracking for subtle 3D tilt
+    const mx = useMotionValue(0.5);
+    const my = useMotionValue(0.5);
+    const rotX = useSpring(useTransform(my, [0, 1], [5, -5]), { stiffness: 180, damping: 28 });
+    const rotY = useSpring(useTransform(mx, [0, 1], [-5, 5]), { stiffness: 180, damping: 28 });
+
+    // Spotlight (percentage position)
+    const spotX = useSpring(useTransform(mx, [0, 1], [0, 100]), { stiffness: 180, damping: 28 });
+    const spotY = useSpring(useTransform(my, [0, 1], [0, 100]), { stiffness: 180, damping: 28 });
+
+    const handleMouseMove = useCallback((e: React.MouseEvent<HTMLDivElement>) => {
+        const rect = cardRef.current?.getBoundingClientRect();
+        if (!rect) return;
+        mx.set((e.clientX - rect.left) / rect.width);
+        my.set((e.clientY - rect.top) / rect.height);
+    }, [mx, my]);
+
+    const handleMouseLeave = useCallback(() => {
+        mx.set(0.5);
+        my.set(0.5);
+        setHovered(false);
+    }, [mx, my]);
+
+    const maxTags = 6;
+    const visibleTech = project.tech.slice(0, maxTags);
+    const extraCount = project.tech.length - maxTags;
 
     return (
         <motion.div
-            initial={{ opacity: 0, y: 40 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6, delay: index * 0.1, ease: [0.25, 0.46, 0.45, 0.94] }}
-            onHoverStart={() => setHovered(true)}
-            onHoverEnd={() => setHovered(false)}
-            whileHover={{ y: -8, scale: 1.01 }}
-            className="group relative rounded-3xl overflow-hidden flex flex-col h-full cursor-pointer"
-            style={{
-                background: hovered
-                    ? `radial-gradient(ellipse at top left, ${gradient.from}, rgba(15,15,20,0.98))`
-                    : 'rgba(12, 12, 18, 0.95)',
-                border: hovered ? `1px solid ${gradient.border}` : '1px solid rgba(255,255,255,0.08)',
-                boxShadow: hovered
-                    ? `0 25px 60px rgba(0,0,0,0.5), 0 0 40px ${gradient.from}`
-                    : '0 4px 20px rgba(0,0,0,0.4)',
-                transition: 'all 0.4s cubic-bezier(0.4, 0, 0.2, 1)',
-            }}
+            initial={{ opacity: 0, y: 50, scale: 0.94 }}
+            whileInView={{ opacity: 1, y: 0, scale: 1 }}
+            viewport={{ once: true, margin: '-40px' }}
+            transition={{ duration: 0.65, delay: index * 0.12, ease: [0.21, 0.47, 0.32, 0.98] }}
+            className="group h-full"
+            style={{ perspective: 900 }}
         >
-            {/* Shimmer sweep */}
             <motion.div
-                animate={{ x: hovered ? '200%' : '-100%' }}
-                transition={{ duration: 0.7, ease: 'easeInOut' }}
-                className="absolute inset-0 skew-x-12 bg-gradient-to-r from-transparent via-white/5 to-transparent z-20 pointer-events-none"
-            />
+                ref={cardRef}
+                onMouseMove={handleMouseMove}
+                onMouseEnter={() => setHovered(true)}
+                onMouseLeave={handleMouseLeave}
+                style={{
+                    rotateX: rotX,
+                    rotateY: rotY,
+                    transformStyle: 'preserve-3d',
+                    // Subtle border and background, no big color blasts
+                    background: hovered ? 'rgba(18,18,28,0.97)' : 'rgba(12,12,20,0.96)',
+                    border: hovered ? '1px solid rgba(255,255,255,0.14)' : '1px solid rgba(255,255,255,0.07)',
+                    boxShadow: hovered
+                        ? '0 24px 60px rgba(0,0,0,0.55), inset 0 1px 0 rgba(255,255,255,0.08)'
+                        : '0 4px 20px rgba(0,0,0,0.4), inset 0 1px 0 rgba(255,255,255,0.04)',
+                    transition: 'background 0.35s, border-color 0.35s, box-shadow 0.35s',
+                }}
+                className="relative flex flex-col h-full rounded-3xl overflow-hidden"
+            >
+                {/* Entry shimmer sweep */}
+                <motion.div
+                    initial={{ x: '-100%' }}
+                    animate={{ x: '200%' }}
+                    transition={{ delay: index * 0.12 + 0.35, duration: 0.85, ease: 'easeInOut' }}
+                    className="absolute inset-0 skew-x-12 bg-gradient-to-r from-transparent via-white/[0.05] to-transparent pointer-events-none z-20"
+                />
 
-            {/* Card number badge */}
-            <div className="absolute top-4 sm:top-5 right-4 sm:right-5 z-10">
-                <div className={`text-4xl sm:text-5xl font-black opacity-10 group-hover:opacity-20 transition-opacity duration-300 ${gradient.num} select-none font-mono`}>
-                    {String(index + 1).padStart(2, '0')}
-                </div>
-            </div>
+                {/* Cursor spotlight — very subtle */}
+                <motion.div
+                    className="absolute inset-0 rounded-3xl pointer-events-none z-0"
+                    style={{
+                        background: `radial-gradient(circle 180px at ${spotX}% ${spotY}%, ${accent.glow} 0%, transparent 70%)`,
+                        opacity: hovered ? 1 : 0,
+                        transition: 'opacity 0.3s',
+                    }}
+                />
 
-            {/* Content */}
-            <div className="p-5 sm:p-6 md:p-7 flex-1 flex flex-col z-10 relative gap-3 sm:gap-4">
-                <h3 className="text-base sm:text-lg font-bold text-white/90 group-hover:text-white transition-colors pr-8 sm:pr-10 leading-snug">
-                    {project.title}
-                </h3>
+                {/* Top accent line — slides in on hover */}
+                <motion.div
+                    animate={hovered ? { scaleX: 1, opacity: 1 } : { scaleX: 0, opacity: 0 }}
+                    transition={{ duration: 0.4, ease: 'easeOut' }}
+                    className="absolute top-0 left-0 right-0 h-[2px] rounded-t-3xl origin-left pointer-events-none"
+                    style={{ background: `linear-gradient(90deg, ${accent.color}, transparent)` }}
+                />
 
-                <p className="text-white/45 flex-1 text-xs sm:text-sm leading-relaxed text-justify group-hover:text-white/60 transition-colors">
-                    {project.description}
-                </p>
+                {/* CARD CONTENT */}
+                <div className="relative z-10 flex flex-col h-full p-5 sm:p-6 md:p-7 gap-4 sm:gap-5">
 
-                {/* Tech tags */}
-                <div className="flex flex-wrap gap-1 sm:gap-1.5 mt-auto">
-                    {project.tech.slice(0, 7).map((tech) => (
-                        <TechTag key={tech} tech={tech} />
-                    ))}
-                    {project.tech.length > 7 && (
-                        <span className="flex items-center bg-white/5 border border-white/10 text-white/40 text-[10px] sm:text-[11px] px-2 sm:px-2.5 py-1 sm:py-1.5 rounded-full font-medium">
-                            +{project.tech.length - 7} more
-                        </span>
-                    )}
-                </div>
-
-                {/* Links */}
-                {(project.github || project.live) && (
-                    <div className="flex flex-wrap gap-2 sm:gap-3 pt-3 sm:pt-4 border-t border-white/5">
-                        {project.github && (
-                            <motion.a
-                                whileHover={{ scale: 1.06 }}
-                                whileTap={{ scale: 0.96 }}
-                                href={project.github}
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                className="flex items-center gap-1.5 sm:gap-2 px-3 sm:px-4 py-2 sm:py-2.5 glass border border-white/10 rounded-xl text-white/65 text-[11px] sm:text-xs font-semibold hover:text-white hover:border-white/25 transition-all"
+                    {/* Number + title row */}
+                    <div className="flex items-start justify-between gap-3">
+                        <div className="flex-1 min-w-0">
+                            <motion.div
+                                initial={{ opacity: 0, x: -10 }}
+                                whileInView={{ opacity: 1, x: 0 }}
+                                viewport={{ once: true }}
+                                transition={{ delay: index * 0.12 + 0.3, duration: 0.4 }}
+                                className="flex items-center gap-1.5 mb-2 text-[10px] sm:text-xs font-bold uppercase tracking-widest"
+                                style={{ color: accent.color }}
                             >
-                                <FaGithub size={14} /> GitHub
-                            </motion.a>
-                        )}
+                                <span
+                                    className="inline-flex w-5 h-5 rounded-full items-center justify-center text-[9px] font-black shrink-0"
+                                    style={{ background: `${accent.color}20`, border: `1px solid ${accent.color}40` }}
+                                >
+                                    {index + 1}
+                                </span>
+                                Project
+                            </motion.div>
+                            <h3 className="text-base sm:text-lg md:text-xl font-bold text-white/85 group-hover:text-white transition-colors leading-snug">
+                                {project.title}
+                            </h3>
+                        </div>
+
+                        {/* External link icon (top-right) */}
                         {project.live && project.live !== '#' && (
-                            <motion.a
-                                whileHover={{ scale: 1.06 }}
-                                whileTap={{ scale: 0.96 }}
+                            <a
                                 href={project.live}
                                 target="_blank"
                                 rel="noopener noreferrer"
-                                className="flex items-center gap-1.5 sm:gap-2 px-3 sm:px-4 py-2 sm:py-2.5 rounded-xl text-[11px] sm:text-xs font-semibold text-black transition-all"
-                                style={{ background: 'linear-gradient(135deg, #c084fc, #818cf8, #60a5fa)' }}
+                                className="relative z-30 shrink-0 mt-1 p-2 rounded-xl bg-white/[0.05] border border-white/10 text-white/40 hover:text-white/80 hover:bg-white/[0.10] hover:border-white/20 transition-all"
+                                onClick={(e) => e.stopPropagation()}
                             >
-                                <ArrowUpRight size={13} /> Live Demo
-                            </motion.a>
+                                <ExternalLink size={14} />
+                            </a>
                         )}
                     </div>
-                )}
-            </div>
+
+                    {/* Divider */}
+                    <motion.div
+                        initial={{ scaleX: 0 }}
+                        whileInView={{ scaleX: 1 }}
+                        viewport={{ once: true }}
+                        transition={{ delay: index * 0.12 + 0.35, duration: 0.5, ease: 'easeOut' }}
+                        className="h-px origin-left"
+                        style={{ background: `linear-gradient(90deg, ${accent.color}40, transparent)` }}
+                    />
+
+                    {/* Description */}
+                    <p className="text-white/45 group-hover:text-white/60 text-xs sm:text-sm leading-relaxed flex-1 transition-colors">
+                        {project.description}
+                    </p>
+
+                    {/* Tech tags */}
+                    <div className="flex flex-wrap gap-1.5">
+                        {visibleTech.map((tech, i) => (
+                            <TechTag
+                                key={tech}
+                                tech={tech}
+                                delay={index * 0.12 + 0.38 + i * 0.035}
+                            />
+                        ))}
+                        {extraCount > 0 && (
+                            <motion.span
+                                initial={{ opacity: 0, scale: 0.75 }}
+                                animate={{ opacity: 1, scale: 1 }}
+                                transition={{ delay: index * 0.12 + 0.38 + maxTags * 0.035 }}
+                                className="flex items-center bg-white/[0.04] border border-white/[0.07] text-white/30 text-[10px] sm:text-[11px] px-2.5 py-1 rounded-full font-medium"
+                            >
+                                +{extraCount}
+                            </motion.span>
+                        )}
+                    </div>
+
+                    {/* Action buttons */}
+                    <div className="relative z-30 flex flex-wrap gap-2 sm:gap-3 pt-3 border-t border-white/[0.05]">
+                        {project.github && (
+                            <a
+                                href={project.github}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                onClick={(e) => e.stopPropagation()}
+                                className="flex items-center gap-2 px-4 sm:px-5 py-2.5 rounded-xl border border-white/10 bg-white/[0.04] text-white/60 text-xs sm:text-[13px] font-semibold hover:text-white hover:border-white/25 hover:bg-white/[0.09] transition-all cursor-pointer select-none"
+                            >
+                                <FaGithub size={14} />
+                                GitHub
+                            </a>
+                        )}
+                        {project.live && project.live !== '#' && (
+                            <a
+                                href={project.live}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                onClick={(e) => e.stopPropagation()}
+                                className="relative overflow-hidden flex items-center gap-2 px-4 sm:px-5 py-2.5 rounded-xl text-xs sm:text-[13px] font-bold text-black transition-all cursor-pointer select-none"
+                                style={{ background: 'linear-gradient(135deg, #c084fc, #818cf8, #60a5fa)' }}
+                            >
+                                <ArrowUpRight size={14} className="relative z-10" />
+                                <span className="relative z-10">Live Demo</span>
+                            </a>
+                        )}
+                    </div>
+                </div>
+            </motion.div>
         </motion.div>
     );
 }
