@@ -149,7 +149,7 @@ export default function Hero() {
                         style={{ background: 'linear-gradient(135deg, #1a0533 0%, #0a0520 50%, #030010 100%)' }}
                     >
                         <span className="shimmer-text text-4xl sm:text-5xl font-bold">
-                            {personalInfo.name.charAt(0)}
+                            {"SD"}
                         </span>
                     </div>
                 </motion.div>
