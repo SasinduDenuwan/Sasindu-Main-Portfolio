@@ -73,7 +73,7 @@ export const projects: Project[] = [
         title: 'EventGO Online Ticket Booking System & Event Management System',
         description:
             'EventGo is a centralized platform designed to simplify how users explore events, book tickets, and manage event logistics. Empowering organizers with powerful management tools and providing admins with comprehensive control, it sets a new standard for efficient event coordination.',
-        tech: ['HTML5', 'CSS3', 'Bootstrap', 'JavaScript', 'Java', 'Spring Boot', 'Hibernate', 'Spring Security', 'MySQL', 'Maven', 'JWT', 'Postman'],
+        tech: ['HTML5', 'CSS3', 'Bootstrap', 'JavaScript', 'Java', 'Spring Boot', 'Hibernate', 'Stripe', 'Spring Security', 'MySQL', 'Maven', 'JWT', 'Postman'],
         github: 'https://github.com/SasinduDenuwan/EventGo-Online-Ticket-Booking-Event-Management-System',
         live: '#',
     },

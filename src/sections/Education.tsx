@@ -1,3 +1,6 @@
+'use client';
+
+import { motion } from 'framer-motion';
 import SectionWrapper from '@/components/SectionWrapper';
 import TimelineItem from '@/components/TimelineItem';
 import { education } from '@/data';
@@ -6,23 +9,35 @@ import { BookOpen } from 'lucide-react';
 export default function Education() {
     return (
         <SectionWrapper id="education" className="relative z-10 w-full">
-            <div className="flex flex-col items-center mb-16">
-                <div className="flex items-center gap-2 mb-2 text-emerald-400">
-                    <BookOpen size={18} />
-                    <span className="font-semibold tracking-wider uppercase text-sm">Background</span>
+            <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.6 }}
+                className="flex flex-col items-center mb-16"
+            >
+                <div className="inline-flex items-center gap-2 mb-3 px-4 py-1.5 rounded-full glass border border-emerald-500/20 text-emerald-400 text-sm font-semibold">
+                    <BookOpen size={14} />
+                    Background
                 </div>
-                <h2 className="text-4xl md:text-5xl font-bold bg-gradient-to-br from-white to-white/40 bg-clip-text text-transparent text-center">Education</h2>
-            </div>
+                <h2 className="text-4xl md:text-5xl font-extrabold bg-gradient-to-br from-white via-white to-white/30 bg-clip-text text-transparent text-center">
+                    Education
+                </h2>
+                <p className="mt-3 text-white/40 text-base font-light max-w-md text-center">
+                    My academic journey and continuous learning path
+                </p>
+            </motion.div>
 
             <div className="max-w-3xl mx-auto w-full">
-                <div className="ml-2">
-                    {education.map((item) => (
+                <div className="ml-4 pl-4">
+                    {education.map((item, i) => (
                         <TimelineItem
                             key={item.id}
                             title={item.degree}
                             subtitle={item.institution}
                             year={item.year}
                             description={item.description}
+                            index={i}
                         />
                     ))}
                 </div>

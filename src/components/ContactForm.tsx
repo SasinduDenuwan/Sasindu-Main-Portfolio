@@ -1,33 +1,55 @@
 'use client';
 
+import { useState } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { contactSchema, ContactFormData } from '@/lib/validations';
-import { Send } from 'lucide-react';
+import { Send, CheckCircle2 } from 'lucide-react';
+
+const inputClass = "w-full px-4 py-3.5 bg-white/[0.04] border border-white/10 rounded-xl focus:outline-none focus:ring-2 focus:ring-purple-500/40 focus:border-purple-500/40 text-white placeholder:text-white/20 transition-all font-light hover:border-white/20";
 
 export default function ContactForm() {
+    const [sent, setSent] = useState(false);
+
     const {
         register,
         handleSubmit,
         formState: { errors, isSubmitting },
         reset,
-    } = useForm<ContactFormData>({
-        resolver: zodResolver(contactSchema),
-    });
+    } = useForm<ContactFormData>({ resolver: zodResolver(contactSchema) });
 
     const onSubmit = async (data: ContactFormData) => {
         console.log('Form data:', data);
         await new Promise((resolve) => setTimeout(resolve, 1500));
-        alert('Message sent successfully!');
+        setSent(true);
         reset();
+        setTimeout(() => setSent(false), 4000);
     };
 
     return (
-        <div className="bg-white/5 backdrop-blur-xl border border-white/10 p-8 rounded-3xl shadow-[0_0_40px_rgba(0,0,0,0.5)]">
+        <div className="glass-strong border border-white/10 p-8 rounded-3xl shadow-[0_0_60px_rgba(0,0,0,0.5)] relative overflow-hidden">
+            {/* Decorative gradient corner */}
+            <div className="absolute top-0 right-0 w-40 h-40 bg-gradient-to-bl from-purple-500/8 to-transparent rounded-bl-3xl" />
+
             <h3 className="text-2xl font-bold mb-6 text-white/90">Send a Message</h3>
-            <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
+
+            <AnimatePresence>
+                {sent && (
+                    <motion.div
+                        initial={{ opacity: 0, scale: 0.9, y: -10 }}
+                        animate={{ opacity: 1, scale: 1, y: 0 }}
+                        exit={{ opacity: 0, scale: 0.9, y: -10 }}
+                        className="mb-6 flex items-center gap-3 p-4 rounded-2xl bg-emerald-500/10 border border-emerald-500/25 text-emerald-400 font-semibold text-sm"
+                    >
+                        <CheckCircle2 size={18} /> Message sent! I&apos;ll get back to you soon.
+                    </motion.div>
+                )}
+            </AnimatePresence>
+
+            <form onSubmit={handleSubmit(onSubmit)} className="space-y-5">
                 <div>
-                    <label htmlFor="name" className="block mb-2 text-sm font-medium text-white/60 uppercase tracking-widest">
+                    <label htmlFor="name" className="block mb-2 text-xs font-semibold text-white/45 uppercase tracking-widest">
                         Your Name
                     </label>
                     <input
@@ -35,15 +57,13 @@ export default function ContactForm() {
                         type="text"
                         placeholder="John Doe"
                         {...register('name')}
-                        className="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-xl focus:outline-none focus:ring-2 focus:ring-purple-500/50 focus:border-purple-500/50 text-white placeholder:text-white/20 transition-all font-light"
+                        className={inputClass}
                     />
-                    {errors.name && (
-                        <p className="text-red-400 text-sm mt-2 font-medium">{errors.name.message}</p>
-                    )}
+                    {errors.name && <p className="text-red-400 text-xs mt-1.5 font-medium">{errors.name.message}</p>}
                 </div>
 
                 <div>
-                    <label htmlFor="email" className="block mb-2 text-sm font-medium text-white/60 uppercase tracking-widest">
+                    <label htmlFor="email" className="block mb-2 text-xs font-semibold text-white/45 uppercase tracking-widest">
                         Email Address
                     </label>
                     <input
@@ -51,15 +71,13 @@ export default function ContactForm() {
                         type="email"
                         placeholder="john@example.com"
                         {...register('email')}
-                        className="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500/50 focus:border-blue-500/50 text-white placeholder:text-white/20 transition-all font-light"
+                        className={inputClass}
                     />
-                    {errors.email && (
-                        <p className="text-red-400 text-sm mt-2 font-medium">{errors.email.message}</p>
-                    )}
+                    {errors.email && <p className="text-red-400 text-xs mt-1.5 font-medium">{errors.email.message}</p>}
                 </div>
 
                 <div>
-                    <label htmlFor="message" className="block mb-2 text-sm font-medium text-white/60 uppercase tracking-widest">
+                    <label htmlFor="message" className="block mb-2 text-xs font-semibold text-white/45 uppercase tracking-widest">
                         Message
                     </label>
                     <textarea
@@ -67,27 +85,51 @@ export default function ContactForm() {
                         rows={5}
                         placeholder="Tell me about your project..."
                         {...register('message')}
-                        className="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-xl focus:outline-none focus:ring-2 focus:ring-indigo-500/50 focus:border-indigo-500/50 text-white placeholder:text-white/20 transition-all font-light resize-none"
+                        className={`${inputClass} resize-none`}
                     />
-                    {errors.message && (
-                        <p className="text-red-400 text-sm mt-2 font-medium">{errors.message.message}</p>
-                    )}
+                    {errors.message && <p className="text-red-400 text-xs mt-1.5 font-medium">{errors.message.message}</p>}
                 </div>
 
-                <button
+                <motion.button
+                    whileHover={{ scale: 1.02 }}
+                    whileTap={{ scale: 0.98 }}
                     type="submit"
                     disabled={isSubmitting}
-                    className="w-full flex items-center justify-center gap-2 px-6 py-4 bg-gradient-to-r from-blue-600 to-purple-600 text-white font-bold rounded-xl hover:opacity-90 transition-all hover:scale-[1.02] active:scale-[0.98] disabled:opacity-50 disabled:pointer-events-none shadow-[0_0_20px_rgba(168,85,247,0.4)]"
+                    className="relative w-full overflow-hidden flex items-center justify-center gap-2 px-6 py-4 rounded-xl font-bold text-black shadow-[0_0_30px_rgba(168,85,247,0.3)] disabled:opacity-50 disabled:pointer-events-none transition-all"
+                    style={{ background: 'linear-gradient(135deg, #c084fc, #818cf8, #60a5fa)' }}
                 >
-                    {isSubmitting ? (
-                        <span className="animate-pulse">Sending...</span>
-                    ) : (
-                        <>
-                            Send Message
-                            <Send size={18} />
-                        </>
-                    )}
-                </button>
+                    {/* Shimmer */}
+                    <div className="absolute inset-0 translate-x-[-100%] hover:translate-x-[100%] transition-transform duration-700 bg-gradient-to-r from-transparent via-white/30 to-transparent skew-x-12 pointer-events-none" />
+
+                    <AnimatePresence mode="wait">
+                        {isSubmitting ? (
+                            <motion.span
+                                key="loading"
+                                initial={{ opacity: 0 }}
+                                animate={{ opacity: 1 }}
+                                exit={{ opacity: 0 }}
+                                className="flex items-center gap-2"
+                            >
+                                <motion.div
+                                    animate={{ rotate: 360 }}
+                                    transition={{ duration: 1, repeat: Infinity, ease: 'linear' }}
+                                    className="w-4 h-4 border-2 border-black/40 border-t-black rounded-full"
+                                />
+                                Sending...
+                            </motion.span>
+                        ) : (
+                            <motion.span
+                                key="idle"
+                                initial={{ opacity: 0 }}
+                                animate={{ opacity: 1 }}
+                                exit={{ opacity: 0 }}
+                                className="flex items-center gap-2"
+                            >
+                                Send Message <Send size={17} />
+                            </motion.span>
+                        )}
+                    </AnimatePresence>
+                </motion.button>
             </form>
         </div>
     );
