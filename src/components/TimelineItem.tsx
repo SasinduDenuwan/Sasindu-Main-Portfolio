@@ -31,10 +31,10 @@ export default function TimelineItem({ title, subtitle, year, description, link,
             initial={{ opacity: 0, x: -30 }}
             animate={inView ? { opacity: 1, x: 0 } : {}}
             transition={{ duration: 0.6, delay: index * 0.12, ease: [0.25, 0.46, 0.45, 0.94] }}
-            className="relative pl-10 pb-10 last:pb-0 group"
+            className="relative pl-8 sm:pl-10 pb-8 sm:pb-10 last:pb-0 group"
         >
-            {/* Animated vertical line */}
-            <div className="absolute left-0 top-3 bottom-0 w-px bg-white/8 last:hidden">
+            {/* Vertical line */}
+            <div className="absolute left-0 top-4 bottom-0 w-px bg-white/8 last:hidden">
                 <motion.div
                     initial={{ scaleY: 0 }}
                     animate={inView ? { scaleY: 1 } : {}}
@@ -49,7 +49,7 @@ export default function TimelineItem({ title, subtitle, year, description, link,
                 initial={{ scale: 0 }}
                 animate={inView ? { scale: 1 } : {}}
                 transition={{ type: 'spring', stiffness: 300, damping: 20, delay: index * 0.12 + 0.1 }}
-                className="absolute left-[-9px] top-2 w-5 h-5 rounded-full border-2 border-black group-hover:scale-125 transition-transform duration-300 z-10"
+                className="absolute left-[-8px] sm:left-[-9px] top-2 sm:top-2.5 w-4 h-4 sm:w-5 sm:h-5 rounded-full border-2 border-black group-hover:scale-125 transition-transform duration-300 z-10"
                 style={{
                     background: `linear-gradient(135deg, ${dot.from}, ${dot.to})`,
                     boxShadow: `0 0 12px ${dot.glow}`,
@@ -58,12 +58,9 @@ export default function TimelineItem({ title, subtitle, year, description, link,
 
             {/* Card */}
             <motion.div
-                whileHover={{ x: 6 }}
+                whileHover={{ x: 4 }}
                 transition={{ duration: 0.2 }}
-                className="group/card relative bg-white/[0.04] border border-white/8 rounded-2xl p-6 backdrop-blur-md overflow-hidden"
-                style={{
-                    transition: 'border-color 0.3s, background 0.3s, box-shadow 0.3s',
-                }}
+                className="relative bg-white/[0.04] border border-white/8 rounded-2xl p-4 sm:p-5 md:p-6 backdrop-blur-md overflow-hidden"
                 onMouseEnter={(e) => {
                     e.currentTarget.style.borderColor = `${dot.from}50`;
                     e.currentTarget.style.boxShadow = `0 8px 30px rgba(0,0,0,0.3), 0 0 20px ${dot.glow}20`;
@@ -74,35 +71,29 @@ export default function TimelineItem({ title, subtitle, year, description, link,
                     e.currentTarget.style.boxShadow = '';
                     e.currentTarget.style.background = 'rgba(255,255,255,0.04)';
                 }}
+                style={{ transition: 'border-color 0.3s, background 0.3s, box-shadow 0.3s' }}
             >
                 {/* Year pill */}
                 <div
-                    className="mb-3 inline-flex items-center px-3 py-1 rounded-full text-xs font-bold tracking-wider border"
-                    style={{
-                        background: `${dot.from}18`,
-                        borderColor: `${dot.from}40`,
-                        color: dot.from,
-                    }}
+                    className="mb-2 sm:mb-3 inline-flex items-center px-2.5 sm:px-3 py-0.5 sm:py-1 rounded-full text-[10px] sm:text-xs font-bold tracking-wider border"
+                    style={{ background: `${dot.from}18`, borderColor: `${dot.from}40`, color: dot.from }}
                 >
                     {year}
                 </div>
-
-                <h3 className="text-lg font-bold text-white/90 mb-1 leading-snug">{title}</h3>
-                <h4 className="text-sm font-semibold mb-3" style={{ color: dot.from }}>{subtitle}</h4>
-
+                <h3 className="text-base sm:text-lg font-bold text-white/90 mb-1 leading-snug">{title}</h3>
+                <h4 className="text-xs sm:text-sm font-semibold mb-2 sm:mb-3" style={{ color: dot.from }}>{subtitle}</h4>
                 {description && (
-                    <p className="text-white/50 text-sm leading-relaxed">{description}</p>
+                    <p className="text-white/50 text-xs sm:text-sm leading-relaxed">{description}</p>
                 )}
-
                 {link && (
                     <a
                         href={link}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="inline-flex items-center gap-1.5 mt-3 text-sm font-semibold hover:text-white transition-colors"
+                        className="inline-flex items-center gap-1.5 mt-3 text-xs sm:text-sm font-semibold hover:text-white transition-colors"
                         style={{ color: dot.from }}
                     >
-                        View Credential <ExternalLink size={13} />
+                        View Credential <ExternalLink size={12} />
                     </a>
                 )}
             </motion.div>

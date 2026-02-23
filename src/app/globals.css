@@ -4,14 +4,37 @@
 @theme {
   --animate-spin-slow: spin 8s linear infinite;
   --font-inter: 'Inter', sans-serif;
+
+  /* Custom xs breakpoint (480px) — below Tailwind's sm (640px) */
+  --breakpoint-xs: 480px;
 }
 
 html {
   scroll-behavior: smooth;
+  overflow-x: hidden;
 }
 
 body {
   font-family: 'Inter', sans-serif;
+  overflow-x: hidden;
+}
+
+/* Better tap highlight on mobile */
+* {
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* Text selection color */
+::selection {
+  background: rgba(139, 92, 246, 0.35);
+  color: #fff;
+}
+
+/* Focus ring polish */
+:focus-visible {
+  outline: 2px solid rgba(139, 92, 246, 0.6);
+  outline-offset: 3px;
+  border-radius: 6px;
 }
 
 /* ─── Keyframes ─────────────────────────────────── */

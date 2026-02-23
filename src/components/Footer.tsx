@@ -30,18 +30,18 @@ export default function Footer({ className = '' }: Props) {
     };
 
     return (
-        <footer className={`relative border-t border-white/[0.06] bg-black/70 backdrop-blur-2xl py-14 ${className}`}>
-            {/* Top gradient line */}
-            <div className="absolute top-0 left-1/2 -translate-x-1/2 w-48 h-px bg-gradient-to-r from-transparent via-purple-500/50 to-transparent" />
+        <footer className={`relative border-t border-white/[0.06] bg-black/70 backdrop-blur-2xl py-10 sm:py-12 md:py-14 ${className}`}>
+            {/* Top glow line */}
+            <div className="absolute top-0 left-1/2 -translate-x-1/2 w-32 sm:w-48 h-px bg-gradient-to-r from-transparent via-purple-500/50 to-transparent" />
 
-            <div className="max-w-6xl mx-auto px-6">
-                <div className="flex flex-col md:flex-row justify-between items-center gap-8">
+            <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div className="flex flex-col sm:flex-row justify-between items-center gap-6 sm:gap-8">
 
                     {/* Brand */}
-                    <div className="flex flex-col items-center md:items-start gap-2">
+                    <div className="flex flex-col items-center sm:items-start gap-1.5 sm:gap-2">
                         <motion.span
                             whileHover={{ scale: 1.05 }}
-                            className="text-2xl font-black tracking-tight cursor-default"
+                            className="text-xl sm:text-2xl font-black tracking-tight cursor-default"
                             style={{
                                 background: 'linear-gradient(135deg, #c084fc, #818cf8, #60a5fa)',
                                 WebkitBackgroundClip: 'text',
@@ -50,11 +50,11 @@ export default function Footer({ className = '' }: Props) {
                         >
                             Sasindu Denuwan
                         </motion.span>
-                        <p className="text-white/30 text-sm">Full Stack Engineer · Sri Lanka</p>
+                        <p className="text-white/30 text-xs sm:text-sm">Full Stack Engineer · Sri Lanka</p>
                     </div>
 
-                    {/* Nav links */}
-                    <div className="hidden md:flex gap-1">
+                    {/* Nav links (large screens only) */}
+                    <div className="hidden xl:flex gap-0.5">
                         {navItems.map((item) => (
                             <button
                                 key={item}
@@ -67,7 +67,7 @@ export default function Footer({ className = '' }: Props) {
                     </div>
 
                     {/* Social icons */}
-                    <div className="flex gap-3">
+                    <div className="flex gap-2 sm:gap-3">
                         {socialLinks.map((link) => {
                             const Icon = iconMap[link.icon] ?? FaGithub;
                             const cls = colorMap[link.icon] ?? colorMap.github;
@@ -80,9 +80,9 @@ export default function Footer({ className = '' }: Props) {
                                     target="_blank"
                                     rel="noopener noreferrer"
                                     aria-label={link.name}
-                                    className={`p-3.5 rounded-2xl glass border border-white/10 text-white/40 ${cls.text} ${cls.bg} hover:bg-white/10 transition-all duration-200`}
+                                    className={`p-3 sm:p-3.5 rounded-xl sm:rounded-2xl glass border border-white/10 text-white/40 ${cls.text} ${cls.bg} hover:bg-white/10 transition-all duration-200`}
                                 >
-                                    <Icon size={18} />
+                                    <Icon size={17} />
                                 </motion.a>
                             );
                         })}
@@ -90,12 +90,12 @@ export default function Footer({ className = '' }: Props) {
                 </div>
 
                 {/* Bottom row */}
-                <div className="mt-10 pt-6 border-t border-white/5 flex flex-col md:flex-row justify-between items-center gap-3">
-                    <p className="text-white/25 text-xs flex items-center gap-1.5">
+                <div className="mt-8 sm:mt-10 pt-5 sm:pt-6 border-t border-white/5 flex flex-col sm:flex-row justify-between items-center gap-2 sm:gap-3 text-center sm:text-left">
+                    <p className="text-white/25 text-[10px] sm:text-xs">
                         © {new Date().getFullYear()} Sasindu Denuwan. All rights reserved.
                     </p>
-                    <p className="text-white/20 text-xs flex items-center gap-1.5">
-                        Built with <Heart size={11} className="text-rose-400" fill="currentColor" /> using Next.js & Framer Motion
+                    <p className="text-white/20 text-[10px] sm:text-xs flex items-center gap-1.5">
+                        Built with <Heart size={10} className="text-rose-400" fill="currentColor" /> using Next.js & Framer Motion
                     </p>
                 </div>
             </div>
