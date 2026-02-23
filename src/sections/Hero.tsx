@@ -92,7 +92,7 @@ export default function Hero() {
                         href="#projects"
                         className="flex items-center gap-2 px-8 py-4 bg-white/5 backdrop-blur-md text-white border border-white/10 rounded-full font-medium hover:bg-white/10 transition-all hover:scale-105 active:scale-95"
                     >
-                        View Work
+                        View Projects
                     </a>
                 </motion.div>
             </div>

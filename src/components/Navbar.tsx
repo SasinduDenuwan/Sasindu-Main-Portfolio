@@ -47,7 +47,7 @@ export default function Navbar() {
                         scrollToSection('Home');
                     }}
                 >
-                    AM
+                    Sasindu Denuwan
                 </a>
 
                 {/* Desktop Nav */}
