@@ -5,12 +5,21 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { contactSchema, ContactFormData } from '@/lib/validations';
-import { Send, CheckCircle2 } from 'lucide-react';
+import { Send, CheckCircle2, XCircle } from 'lucide-react';
+import emailjs from '@emailjs/browser';
+
+// ── EmailJS config ──────────────────────────────────────────────────────────
+const EMAILJS_PUBLIC_KEY = 'xLMoLRwdumr_OgP_f';
+const EMAILJS_SERVICE_ID = 'service_f18n82l';
+const EMAILJS_TEMPLATE_ID = 'template_pamlkkj';
+const TO_EMAIL = 'sasindudenuwan2006wpsk@gmail.com';
+// ────────────────────────────────────────────────────────────────────────────
 
 const inputClass = "w-full px-3.5 sm:px-4 py-3 sm:py-3.5 bg-white/[0.04] border border-white/10 rounded-xl focus:outline-none focus:ring-2 focus:ring-purple-500/40 focus:border-purple-500/40 text-white text-sm placeholder:text-white/20 transition-all font-light hover:border-white/20";
 
 export default function ContactForm() {
     const [sent, setSent] = useState(false);
+    const [error, setError] = useState(false);
 
     const {
         register,
@@ -20,11 +29,27 @@ export default function ContactForm() {
     } = useForm<ContactFormData>({ resolver: zodResolver(contactSchema) });
 
     const onSubmit = async (data: ContactFormData) => {
-        console.log('Form data:', data);
-        await new Promise((resolve) => setTimeout(resolve, 1500));
-        setSent(true);
-        reset();
-        setTimeout(() => setSent(false), 4000);
+        setError(false);
+        try {
+            await emailjs.send(
+                EMAILJS_SERVICE_ID,
+                EMAILJS_TEMPLATE_ID,
+                {
+                    from_name: data.name,
+                    from_email: data.email,
+                    message: data.message,
+                    to_email: TO_EMAIL,
+                },
+                EMAILJS_PUBLIC_KEY,
+            );
+            setSent(true);
+            reset();
+            setTimeout(() => setSent(false), 4000);
+        } catch (err) {
+            console.error('EmailJS error:', err);
+            setError(true);
+            setTimeout(() => setError(false), 5000);
+        }
     };
 
     return (
@@ -43,6 +68,17 @@ export default function ContactForm() {
                         className="mb-4 sm:mb-6 flex items-center gap-2.5 sm:gap-3 p-3.5 sm:p-4 rounded-2xl bg-emerald-500/10 border border-emerald-500/25 text-emerald-400 font-semibold text-xs sm:text-sm"
                     >
                         <CheckCircle2 size={16} /> Message sent! I&apos;ll get back to you soon.
+                    </motion.div>
+                )}
+                {error && (
+                    <motion.div
+                        key="error"
+                        initial={{ opacity: 0, scale: 0.9, y: -10 }}
+                        animate={{ opacity: 1, scale: 1, y: 0 }}
+                        exit={{ opacity: 0, scale: 0.9, y: -10 }}
+                        className="mb-4 sm:mb-6 flex items-center gap-2.5 sm:gap-3 p-3.5 sm:p-4 rounded-2xl bg-red-500/10 border border-red-500/25 text-red-400 font-semibold text-xs sm:text-sm"
+                    >
+                        <XCircle size={16} /> Something went wrong. Please try again later.
                     </motion.div>
                 )}
             </AnimatePresence>
