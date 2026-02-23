@@ -61,7 +61,7 @@ export default function LoadingScreen() {
                             />
                             {/* Inner spin ring (opposite) */}
                             <motion.div
-                                animate={{ rotate: -360 }}
+                                animate={{ rotate: 360 }}
                                 transition={{ duration: 2.2, repeat: Infinity, ease: 'linear' }}
                                 className="absolute -inset-2 rounded-full border border-purple-500/30"
                                 style={{ borderTopColor: '#a855f7', borderRightColor: 'transparent', borderBottomColor: 'transparent', borderLeftColor: 'transparent' }}
