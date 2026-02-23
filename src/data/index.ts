@@ -144,5 +144,6 @@ export const personalInfo = {
     email: 'sasindudenuwan2006wpsk@gmail.com',
     location: 'Galle, Sri Lanka',
     avatar: '/images/avatar.jpg', // optional
-    experience: '4+ years',       // ← shown in About section quick-facts
+    experience: '1+ years',       // ← shown in About section quick-facts
+    phone: '+94 70 487 9596',
 };

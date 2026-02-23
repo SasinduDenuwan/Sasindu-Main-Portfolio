@@ -52,6 +52,10 @@ export default function Contact() {
                                 <p className="text-xs text-white/40 uppercase tracking-widest font-semibold mb-1">Email</p>
                                 <span className="text-base font-medium tracking-wide">{personalInfo.email}</span>
                             </div>
+                            <div>
+                                <p className="text-xs text-white/40 uppercase tracking-widest font-semibold mb-1">Phone</p>
+                                <span className="text-base font-medium tracking-wide">{personalInfo.phone}</span>
+                            </div>
                         </a>
                     </div>
 
