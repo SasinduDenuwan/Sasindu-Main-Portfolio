@@ -13,13 +13,13 @@ export default function About() {
             <div className="grid md:grid-cols-2 gap-12 items-center max-w-5xl mx-auto">
                 {/* Left col - Text */}
                 <div className="space-y-6 text-lg text-white/70 leading-relaxed font-light">
-                    <p className="first-letter:text-5xl first-letter:font-bold first-letter:text-white first-line:tracking-widest first-letter:float-left first-letter:pr-2">
+                    <p>
                         {personalInfo.shortBio}
                     </p>
                     <p>
                         I’m currently based in <span className="text-white font-medium">{personalInfo.location}</span>.
                         I love solving complex problems and building products that users truly love.
-                        Outside of coding, I enjoy hiking, open-source contributions, and exploring the latest in tech.
+                        Outside of coding, I enjoy AI, open-source contributions, and exploring the latest in tech.
                     </p>
                 </div>
 
@@ -58,7 +58,7 @@ export default function About() {
                             </div>
                         </li>
 
-                        <li className="flex items-center gap-4 text-white/80 group">
+                        {/* <li className="flex items-center gap-4 text-white/80 group">
                             <div className="p-3 bg-amber-500/10 rounded-xl group-hover:bg-amber-500/20 transition-colors border border-amber-500/20">
                                 <Briefcase size={22} className="text-amber-400" />
                             </div>
@@ -66,7 +66,7 @@ export default function About() {
                                 <p className="text-sm text-white/40 uppercase tracking-wider font-semibold">Experience</p>
                                 <p className="font-medium">{personalInfo.experience}</p>
                             </div>
-                        </li>
+                        </li> */}
                     </ul>
                 </div>
             </div>

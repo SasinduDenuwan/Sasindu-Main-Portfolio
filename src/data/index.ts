@@ -11,7 +11,7 @@ export interface Project {
     id: string;
     title: string;
     description: string;
-    image: string;   // path in public/images
+    image?: string;  // path in public/images (optional)
     tech: string[];
     github?: string;
     live?: string;
@@ -70,24 +70,13 @@ export const skills: Skill[] = [
 export const projects: Project[] = [
     {
         id: '1',
-        title: 'AI-Powered Task Manager',
+        title: 'EventGO Online Ticket Booking System & Event Management System',
         description:
-            'A smart task manager that uses NLP to categorize and prioritize tasks. Built with Next.js, Tailwind, and OpenAI API.',
-        image: '/images/project1.jpg',
-        tech: ['Next.js', 'Tailwind', 'OpenAI', 'Prisma'],
-        github: 'https://github.com/yourusername/task-manager',
-        live: 'https://taskmanager.demo.com',
-    },
-    {
-        id: '2',
-        title: 'E-Commerce Dashboard',
-        description:
-            'Real-time analytics dashboard for e-commerce stores with charts and inventory management.',
-        image: '/images/project2.jpg',
-        tech: ['React', 'Redux', 'Node.js', 'MongoDB'],
-        github: 'https://github.com/yourusername/ecommerce-dashboard',
-        live: 'https://dashboard.demo.com',
-    },
+            'EventGo is a centralized platform designed to simplify how users explore events, book tickets, and manage event logistics. Empowering organizers with powerful management tools and providing admins with comprehensive control, it sets a new standard for efficient event coordination.',
+        tech: ['HTML5', 'CSS3', 'Bootstrap', 'JavaScript', 'Java', 'Spring Boot', 'Hibernate', 'Spring Security', 'MySQL', 'Maven', 'JWT', 'Postman'],
+        github: 'https://github.com/SasinduDenuwan/EventGo-Online-Ticket-Booking-Event-Management-System',
+        live: '#',
+    }
     // Add more projects...
 ];
 

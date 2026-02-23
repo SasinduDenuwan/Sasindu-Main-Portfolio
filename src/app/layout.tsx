@@ -13,8 +13,8 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Alex Morgan Portfolio",
-  description: "Advanced Developer Portfolio showcasing my work and skills.",
+  title: "Sasindu Denuwan",
+  description: "Software Enginnering Student | AI Enthusiast | Web Developer",
 };
 
 export default function RootLayout({

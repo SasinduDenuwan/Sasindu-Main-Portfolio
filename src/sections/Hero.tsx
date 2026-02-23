@@ -2,7 +2,7 @@
 
 import { motion } from 'framer-motion';
 import { personalInfo } from '@/data';
-import { ArrowRight, Briefcase } from 'lucide-react';
+import { ArrowDown, ArrowRight, Briefcase, Download } from 'lucide-react';
 
 export default function Hero() {
     return (
@@ -82,11 +82,11 @@ export default function Hero() {
                     className="flex flex-col sm:flex-row gap-4 items-center"
                 >
                     <a
-                        href="#contact"
+                        href="#"
                         className="group flex items-center gap-2 px-8 py-4 bg-white text-black rounded-full font-bold hover:bg-white/90 transition-all hover:scale-105 active:scale-95 shadow-[0_0_30px_rgba(255,255,255,0.25)]"
                     >
-                        Let&apos;s Talk
-                        <ArrowRight size={18} className="group-hover:translate-x-1 transition-transform" />
+                        Download CV
+                        <Download size={18} className="group-hover:translate-y-1 transition-transform" />
                     </a>
                     <a
                         href="#projects"

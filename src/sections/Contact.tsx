@@ -43,7 +43,7 @@ export default function Contact() {
                     </div>
 
                     {/* Email card */}
-                    <div className="bg-white/5 p-6 rounded-2xl border border-white/10 backdrop-blur-sm">
+                    <div className="bg-white/5 p-6 rounded-2xl border border-white/10 backdrop-blur-sm space-y-6">
                         <a href={`mailto:${personalInfo.email}`} className="flex items-center gap-4 text-white hover:text-blue-400 transition-colors group">
                             <div className="p-3 bg-blue-500/10 rounded-xl border border-blue-500/20 group-hover:bg-blue-500/20 transition-colors">
                                 <Mail size={22} className="text-blue-400" />
@@ -51,6 +51,11 @@ export default function Contact() {
                             <div>
                                 <p className="text-xs text-white/40 uppercase tracking-widest font-semibold mb-1">Email</p>
                                 <span className="text-base font-medium tracking-wide">{personalInfo.email}</span>
+                            </div>
+                        </a>
+                        <a href={`tel:${personalInfo.phone}`} className="flex items-center gap-4 text-white hover:text-blue-400 transition-colors group">
+                            <div className="p-3 bg-blue-500/10 rounded-xl border border-blue-500/20 group-hover:bg-blue-500/20 transition-colors">
+                                <Mail size={22} className="text-blue-400" />
                             </div>
                             <div>
                                 <p className="text-xs text-white/40 uppercase tracking-widest font-semibold mb-1">Phone</p>
