@@ -5,6 +5,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { personalInfo } from '@/data';
 import { Download, Code2, Sparkles, Github, Linkedin } from 'lucide-react';
 import { FaGithub, FaLinkedin } from 'react-icons/fa';
+import Image from 'next/image';
 
 const TITLES = [
     'Full Stack Engineer',
@@ -145,12 +146,15 @@ export default function Hero() {
                         className="absolute inset-0 bg-gradient-to-r from-purple-600 to-blue-600 rounded-full blur-2xl"
                     />
                     <div
-                        className="relative w-28 h-28 sm:w-32 sm:h-32 md:w-36 md:h-36 rounded-full flex items-center justify-center shadow-2xl border border-white/10 overflow-hidden"
-                        style={{ background: 'linear-gradient(135deg, #1a0533 0%, #0a0520 50%, #030010 100%)' }}
+                        className="relative w-40 h-40 sm:w-48 sm:h-48 md:w-56 md:h-56 rounded-full shadow-2xl border border-white/10 overflow-hidden"
                     >
-                        <span className="shimmer-text text-4xl sm:text-5xl font-bold">
-                            {"SD"}
-                        </span>
+                        <Image
+                            src="/profile_image.png"
+                            alt="Sasindu Denuwan"
+                            fill
+                            className="object-cover object-top"
+                            priority
+                        />
                     </div>
                 </motion.div>
 
