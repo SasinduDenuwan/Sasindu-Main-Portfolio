@@ -195,7 +195,7 @@ export default function Hero() {
                         whileHover={{ scale: 1.05 }}
                         whileTap={{ scale: 0.97 }}
                         href="/Sasindu's CV (5).pdf"
-                        download="Sasindu_Denuwan_CV.pdf"
+                        download="Sasindu_Denuwan_Resume.pdf"
                         className="relative overflow-hidden group flex items-center justify-center gap-2 px-7 sm:px-8 py-3.5 sm:py-4 rounded-full font-bold text-sm sm:text-base text-black shadow-[0_0_30px_rgba(168,85,247,0.35)] transition-all w-full sm:w-auto"
                         style={{ background: 'linear-gradient(135deg, #c084fc, #818cf8, #60a5fa)' }}
                     >
